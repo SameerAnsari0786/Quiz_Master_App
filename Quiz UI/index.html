@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Test Your Knowledge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showSection('home')">
+                <i class="fas fa-graduation-cap"></i>
+                QuizMaster
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#" onclick="showSection('quizzes')">Quizzes</a></li>
+                    <li><a href="#" onclick="showSection('about')">About</a></li>
+                    <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Home Section -->
+            <section id="home" class="hero-section">
+                <h1 class="hero-title">Test Your Knowledge with <span class="highlight">QuizMaster</span></h1>
+                <p class="hero-description">
+                    Challenge yourself with our comprehensive collection of quizzes covering various subjects. 
+                    From programming to databases, we have something for everyone!
+                </p>
+                
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Questions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Categories</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                </div>
+                
+                <button class="cta-button" onclick="showSection('quizzes')">Start Quiz Now</button>
+            </section>
+
+            <!-- Quiz Selection Section -->
+            <section id="quizzes" class="quiz-selection">
+                <h2 class="section-title">Choose Your Quiz</h2>
+                <p class="section-subtitle">Select from our variety of challenging quizzes</p>
+                
+                <div class="quiz-grid">
+                    <div class="quiz-card">
+                        <div class="quiz-icon">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <h3 class="quiz-title">Java Programming</h3>
+                        <p class="quiz-description">Test your Java knowledge with object-oriented programming concepts</p>
+                        <div class="quiz-meta">
+                            <span><i class="far fa-clock"></i> 20 mins</span>
+                            <span><i class="far fa-question-circle"></i> 15 questions</span>
+                        </div>
+                        <button class="start-quiz-btn" onclick="startQuiz('java')">Start Java Quiz</button>
+                    </div>
+
+                    <div class="quiz-card">
+                        <div class="quiz-icon">
+                            <i class="fab fa-js-square"></i>
+                        </div>
+                        <h3 class="quiz-title">JavaScript Fundamentals</h3>
+                        <p class="quiz-description">Challenge yourself with JavaScript basics and advanced concepts</p>
+                        <div class="quiz-meta">
+                            <span><i class="far fa-clock"></i> 20 mins</span>
+                            <span><i class="far fa-question-circle"></i> 15 questions</span>
+                        </div>
+                        <button class="start-quiz-btn" onclick="startQuiz('javascript')">Start JS Quiz</button>
+                    </div>
+
+                    <div class="quiz-card">
+                        <div class="quiz-icon">
+                            <i class="fab fa-cuttlefish"></i>
+                        </div>
+                        <h3 class="quiz-title">C++ Programming</h3>
+                        <p class="quiz-description">Explore C++ syntax, data structures, and algorithms</p>
+                        <div class="quiz-meta">
+                            <span><i class="far fa-clock"></i> 20 mins</span>
+                            <span><i class="far fa-question-circle"></i> 15 questions</span>
+                        </div>
+                        <button class="start-quiz-btn" onclick="startQuiz('cpp')">Start C++ Quiz</button>
+                    </div>
+
+                    <div class="quiz-card">
+                        <div class="quiz-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="quiz-title">DBMS</h3>
+                        <p class="quiz-description">Test your database querying and management skills</p>
+                        <div class="quiz-meta">
+                            <span><i class="far fa-clock"></i> 20 mins</span>
+                            <span><i class="far fa-question-circle"></i> 15 questions</span>
+                        </div>
+                        <button class="start-quiz-btn" onclick="startQuiz('dbms')">Start DBMS Quiz</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Interface -->
+            <section id="quiz-interface" class="quiz-interface">
+                <div class="quiz-header">
+                    <div class="quiz-info">
+                        <h3 id="quiz-topic">Java Programming</h3>
+                    </div>
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-text" id="progress-text">Question 1 of 15</div>
+                    </div>
+                    <div class="timer" id="timer">20:00</div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number" id="question-number">Question 1 of 15</div>
+                    <h3 class="question-text" id="question-text">Loading question...</h3>
+                    <div class="options-container" id="options-container">
+                        <!-- Options will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <div class="quiz-controls">
+                    <button class="btn btn-secondary" onclick="previousQuestion()" id="prev-btn" disabled>Previous</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn" disabled>Next Question</button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results" class="results-section">
+                <div class="results-card">
+                    <div class="results-icon" id="results-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h2 class="results-title" id="results-title">Quiz Complete!</h2>
+                    <div class="score-display" id="score-display">0/15</div>
+                    
+                    <div class="results-stats">
+                        <div class="stat-box">
+                            <div class="stat-value" id="correct-answers">0</div>
+                            <div class="stat-description">Correct</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="incorrect-answers">0</div>
+                            <div class="stat-description">Incorrect</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="percentage">0%</div>
+                            <div class="stat-description">Score</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-controls">
+                        <button class="btn btn-secondary" onclick="showSection('quizzes')">Take Another Quiz</button>
+                        <button class="btn btn-primary" onclick="retakeQuiz()">Retake Quiz</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="about-section">
+                <div class="about-content">
+                    <h2 class="section-title" style="color: #333;">About QuizMaster</h2>
+                    
+                    <h3>What Makes QuizMaster Different?</h3>
+                    <p>QuizMaster stands out from other quiz platforms by offering a unique, comprehensive learning experience designed specifically for students and professionals looking to enhance their knowledge and skills.</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div>
+                                <h4>Adaptive Learning</h4>
+                                <p>Our intelligent system adapts to your learning pace and provides personalized quiz recommendations based on your performance and interests.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div>
+                                <h4>Programming Focus</h4>
+                                <p>Unlike generic quiz platforms, we specialize in programming languages and technical skills, with hands-on coding challenges and real-world scenarios.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Cross-Platform</h4>
+                                <p>Access your quizzes anywhere, anytime with our responsive design that works seamlessly across all devices and platforms.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-container" style="color: #333; margin-top: 2rem;">
+                        <div class="stat-item">
+                            <span class="stat-number" style="color: #4a90e2;">500+</span>
+                            <span class="stat-label">Curated Questions</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" style="color: #4a90e2;">98%</span>
+                            <span class="stat-label">Satisfaction Rate</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section">
+                <div class="contact-content">
+                    <h2 class="section-title" style="color: #333;">Contact Information</h2>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p><a href="mailto:smd80383@gmail.com">smd80383@gmail.com</a></p>
+                                <small>Response Time: Usually within 24 hours</small>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Social Media</h4>
+                                <p>Follow us on social platforms</p>
+                                <div style="margin-top: 0.5rem;">
+                                    <a href="https://x.com/Sameer7512"><i class="fab fa-twitter" style="margin-right: 0.5rem; color: #1da1f2;"></i></a>
+                                    <a href="https://www.facebook.com/share/1GjPKY9bxG/"><i class="fab fa-facebook" style="margin-right: 0.5rem; color: #4267b2;"></i></a>
+                                    <a href="https://www.linkedin.com/in/sameeransari2005/"><i class="fab fa-linkedin" style="margin-right: 0.5rem; color: #0077b5;"></i></a>
+                                    <a href="https://www.instagram.com/sameer_ansari.1/"><i class="fab fa-instagram" style="color: #e4405f;"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                        <p><strong>QuizMaster</strong> - Empowering learners through interactive quizzes and challenges.</p>
+                        <p style="color: #666; margin-top: 1rem;">© 2025 QuizMaster. All rights reserved.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Section -->
+            <section id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Loading quiz questions...</p>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
